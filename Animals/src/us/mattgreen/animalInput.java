@@ -3,113 +3,81 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class animalInput {
-    ArrayList<Talkable> moveList = new ArrayList<Talkable>();
-    Scanner keyboard = new Scanner(System.in); //ask in
-    String input = keyboard.nextLine();  // what type
+    private ArrayList<Talkable> moveList = new ArrayList<Talkable>();
+    private Scanner keyboard = new Scanner(System.in); //ask in
+    private String name;
+    private Boolean good;
 
 
-    String name;
-    Integer age;
-    Boolean good;
-    Integer number;
+    private int number = Integer.MAX_VALUE; //This value will never change
+    private int age = Integer.MAX_VALUE; //This value will never change
 
+    InputTypeVerifier valid = new InputTypeVerifier();  //this creates the object that will be called
 
     public void prompt(ArrayList<Talkable> moveList) {  //define a function
-        System.out.println("Dog Cat or Person");
-        input = keyboard.next();
-
+        System.out.println("Dog Cat or Student");
+        String input = keyboard.nextLine();
 
         switch (input) {   //eval
-
-
             case "Dog":   //if "dog"
                 System.out.println("name?");
                 name = keyboard.nextLine();
-                try {
-                    this.name = String.format(name);
-                } catch (Exception e) {
-                    System.out.println("Not a string");
-                }
-
-                //this seems wrong
-
                 System.out.println("Is the dog is good? True for good or False for bad");
-                input = keyboard.next();
-
                 String good = keyboard.nextLine();
-                try {
-                    this.good = Boolean.parseBoolean(good); //
-                } catch (Exception e) {
-                    System.out.println("Not a boolean");
-                }
-
+                this.good = Boolean.parseBoolean(good); //
                 addDog(moveList);
                 break;
 
-
-            case "Cat":  // eval input
-                System.out.println("name?");
-                name = keyboard.next();
-                try {
-                    this.name = String.format(name);
-
-                } catch (Exception e) {
-                    System.out.println("Not a string");
-                }
-
-                System.out.println("¿How many mice has this cat killed, 1,2,3,4,5." +
-                        " enter an int?");
-                input = keyboard.next();
-
-                try {
-                    int number = Integer.parseInt(input);
-                } catch (NumberFormatException e) {
-                    System.out.println("error not a number");
-                    input = keyboard.next();
-                }
-                addCat(moveList);
-
-                break;
+            case "Cat":  // create cat object code
+                System.out.println("name?");    // ask for a name
+                name = keyboard.nextLine(); // a name, your cat can be a number or a False if yoo want.. Im not here to judge
+                System.out.println("Enter a number: "); //prompt
+                number = valid.Number();   // Run the method of valid with the function of number, this returns an int. '
+                addStudent(moveList);   // add name and number to an object and add it to our list, Allow that list to be passed to main
+                break; //break the switch
 
 
             case "Student":  // eval input
-                System.out.println("name?");
-                name = keyboard.next();{
-                try {
-                    this.name = String.format(name);
-                } catch (Exception e) {
-                    System.out.println("Not a string");
-                }
-
-
-                System.out.println("¿Age?");
-                try {
-                    String age = keyboard.next();
-                    this.age = Integer.parseInt(age);
-                } catch (Exception e) {
-                    System.out.println("Not a integer");
-                }
+                System.out.println("name?"); // name
+                name = keyboard.nextLine();   // set
+                age = valid.Age();
                 addStudent(moveList);
                 break;
-                }
+                /**
+                while (age == Integer.MAX_VALUE) {
 
-        }
-    }
+                    /**
+                    String ageString = keyboard.nextLine();
+                    try {
+                        age = Integer.parseInt(ageString);
+                    } catch (NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                     **/
+                }
+            }
+
+
+
+
     public void addStudent(ArrayList<Talkable> moveList) {
-        name  = getName();
+        name = getName();
         age = getAge();
-        moveList.add(new Student(age,name));
+        moveList.add(new Student(age, name));
     }
+
     public void addCat(ArrayList<Talkable> moveList) {
-        name  = getName();
+        name = getName();
         number = getNumber();
-        moveList.add(new Cat(number,name));
+        moveList.add(new Cat(number, name));
     }
+
     public void addDog(ArrayList<Talkable> moveList) {
-        name  = getName();
+        name = getName();
         good = getGood(); //I loled... getgood
 
-        moveList.add(new Dog(good,name));
+        moveList.add(new Dog(good, name));
     }
 
     public ArrayList<Talkable> getMoveList() {
@@ -152,16 +120,3 @@ public class animalInput {
         this.number = number;
     }
 }
-
-/*
-
-            try
-    {
-        animal = keyboard.parseInt(animal);
-    }
-    catch(Exception notasting)
-    {
-        System.out.println("The following error occurred: " + e.getMessage());
-    }
-}
-..*/
