@@ -1,4 +1,4 @@
-package us.mattgreen;
+package Oldcode.Animals.Animals.src.us.mattgreen;
 import java.util.Scanner;
 
 public class InputTypeVerifier {
